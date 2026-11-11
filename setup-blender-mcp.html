@@ -1,0 +1,43 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Connect Blender to Claude or Antigravity (MCP setup prompts)</title><style>:root{color-scheme:dark light}body{margin:0;background:#0d1224;color:#e8ecff;font:17px/1.6 system-ui,Segoe UI,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.6rem;line-height:1.2}h2{font-size:1.2rem;margin-top:2rem;color:#ffd60a}
+blockquote{margin:1rem 0;padding:.4rem 1rem;border-left:4px solid #ffd60a;background:#161d38;border-radius:8px}
+pre{position:relative;background:#050814;border:1px solid #2a3560;border-radius:12px;padding:16px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:14px/1.5 Consolas,monospace}
+button{position:sticky;float:right;top:0;margin:-6px -6px 6px 8px;background:#ffd60a;color:#14141e;border:0;border-radius:10px;padding:8px 14px;font-weight:700;cursor:pointer}
+a{color:#7fb2ff}footer{margin-top:3rem;opacity:.7;font-size:.9rem}</style><main><h1>Connect Blender to Claude or Antigravity (MCP setup prompts)</h1>
+<p><strong>What this does:</strong> two copy-paste prompts that make your AI walk you through connecting Blender to <strong>Claude</strong> or <strong>Antigravity</strong> with an MCP server, one step at a time.</p>
+<blockquote><strong>Safety:</strong> an MCP connection lets the AI run code inside Blender. Save your file first, only use servers you trust, and do not open the connection to other computers.</blockquote>
+<hr>
+<h2>Option A: Claude (Desktop or Claude Code)</h2>
+<pre><code>I use [Windows / macOS / Linux] and Blender [version]. I want you to control Blender through an MCP connection.
+Guide me step by step, ONE step at a time, and wait for my answer after each step.
+1) Check what I already have: Blender version, Python, and the &quot;uv&quot; tool (explain how to install uv if it is missing).
+2) Tell me which Blender MCP server and which Blender add-on to use and give me the link to its README, so I can compare
+   your steps with the official ones (they change over time).
+3) How to install the add-on in Blender (Edit &gt; Preferences &gt; Add-ons) and how to start the connection from the add-on panel.
+4) How to add the MCP server to [Claude Desktop / Claude Code] and how to restart it.
+5) A harmless test: add a cube, move it, then delete it.
+If a step fails, ask me for the exact error text and help me fix it. Do not skip steps.
+Remind me to save my .blend file before the first command that changes my scene.</code></pre>
+<h2>Option B: Antigravity</h2>
+<pre><code>I use [Windows / macOS / Linux], Blender [version] and Antigravity. I want Antigravity to control Blender through an MCP server.
+Guide me step by step, ONE step at a time, and wait for my answer after each step.
+1) Check what I already have: Blender version, Python, and the &quot;uv&quot; tool (explain how to install uv if it is missing).
+2) Tell me which Blender MCP server and which Blender add-on to use and give me the link to its README, so I can compare
+   your steps with the official ones.
+3) How to install the add-on in Blender and start its connection (note the port it uses).
+4) How to open Antigravity&#x27;s MCP settings, add the server there (show me the exact JSON to paste) and refresh the list of tools.
+5) A harmless test: add a cube, move it, then delete it.
+If a step fails, ask me for the exact error text. Do not skip steps, and remind me to save my .blend file first.</code></pre>
+<h2>Quick reference (one commonly used setup)</h2>
+<p>A widely used open-source Blender MCP is <a href="https://github.com/ahujasid/blender-mcp">ahujasid/blender-mcp</a>. At the time of writing it uses a Blender add-on plus the <code>uvx blender-mcp</code> command. The settings usually look like this (always compare with its README, because steps change):</p>
+<pre><code>{
+  &quot;mcpServers&quot;: {
+    &quot;blender&quot;: {
+      &quot;command&quot;: &quot;uvx&quot;,
+      &quot;args&quot;: [&quot;blender-mcp&quot;]
+    }
+  }
+}</code></pre>
+<p>Claude Code: <code>claude mcp add blender -- uvx blender-mcp</code>. Then in Blender press <em>N</em>, open the add-on tab and connect.</p>
+<h2>After it works</h2><p>Try the <a href="flurry-1.html">Flurry snowman prompt</a> and tell your AI to run it in Blender for you.</p><p><em>Made by Caught in 3D. Free to use for your own projects.</em></p><footer>Caught in 3D · prompts are free to use for your own projects.</footer></main><script>document.querySelectorAll('pre').forEach(p=>{const b=document.createElement('button');b.textContent='Copy';
+b.onclick=()=>{navigator.clipboard.writeText(p.querySelector('code').innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)})};p.prepend(b)})</script></html>
