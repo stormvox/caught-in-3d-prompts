@@ -1,0 +1,38 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Bloby Part 3 — Connect Claude to Blender and make your own character</title><style>:root{color-scheme:dark light}body{margin:0;background:#0d1224;color:#e8ecff;font:17px/1.6 system-ui,Segoe UI,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.6rem;line-height:1.2}h2{font-size:1.2rem;margin-top:2rem;color:#ffd60a}
+blockquote{margin:1rem 0;padding:.4rem 1rem;border-left:4px solid #ffd60a;background:#161d38;border-radius:8px}
+pre{position:relative;background:#050814;border:1px solid #2a3560;border-radius:12px;padding:16px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:14px/1.5 Consolas,monospace}
+button{position:sticky;float:right;top:0;margin:-6px -6px 6px 8px;background:#ffd60a;color:#14141e;border:0;border-radius:10px;padding:8px 14px;font-weight:700;cursor:pointer}
+a{color:#7fb2ff}footer{margin-top:3rem;opacity:.7;font-size:.9rem}</style><main><h1>Bloby Part 3 — Connect Claude to Blender and make your own character</h1>
+<p><strong>What this does:</strong> a step-by-step recipe plus the prompts from the video, so you can make your own character the same way.</p>
+<blockquote>Tip: if you do not want to connect anything, skip step 1. Claude can still write the scripts; you paste them into Blender&#x27;s <em>Scripting</em> tab and press ▶ Run Script.</blockquote>
+<hr>
+<h2>Step 1 — Give Claude a way to reach Blender (optional, &quot;MCP&quot;)</h2>
+<p>Paste this into Claude:</p>
+<pre><code>I use Windows and Blender (version: [your version]). I want Claude to control Blender through an MCP
+connection. Guide me step by step, one step at a time, and wait for my answer after each step:
+1) which Blender MCP add-on/server to use, 2) how to install it, 3) how to start the connection inside
+Blender, 4) how to add it to Claude, 5) a harmless test (for example, add a cube and move it).
+If something fails, ask me for the exact error text and help me fix it. Do not skip steps.</code></pre>
+<h2>Step 2 — Describe your character in plain words</h2>
+<p>Shape, colors and mood. Paste and fill in the brackets:</p>
+<pre><code>Write ONE Blender Python (bpy) script that builds a cartoon character from simple shapes only.
+Character: a [animal/robot/monster] called &quot;[NAME]&quot;. Shape: [round / tall / tiny legs ...].
+Colors: [main color], [second color], [accent color]. Mood: [friendly / sleepy / excited].
+Parts: [head, body, belly, big eyes, cheeks, arms, feet, 3 small tufts ...].
+Name every object clearly and parent everything to one empty called &quot;CharacterRoot&quot;.
+Add a dark floor, two area lights (key + fill), a camera, smooth shading and glossy materials.
+Render one vertical 1080 x 1920 still. Comment the code and tell me in 3 lines how to run it.</code></pre>
+<h2>Step 3 — Ask for small changes, one at a time</h2>
+<p>Good examples:</p>
+<ul>
+<li><em>&quot;Make the eyes 20% bigger.&quot;</em></li>
+<li><em>&quot;Make the body color warmer.&quot;</em></li>
+<li><em>&quot;Give him a calmer, more relaxed pose. No big movements.&quot;</em></li>
+</ul>
+<h2>Step 4 — Check every result</h2>
+<p>Claude can make mistakes. Look at every render before you continue, and if something is wrong, say exactly what you see.</p>
+<pre><code>Look at this result. Tell me honestly what could be wrong (proportions, colors, overlapping parts,
+objects floating in the air). Then give me the smallest possible fix.</code></pre>
+<p><em>Made by Caught in 3D. Free to use for your own projects.</em></p><footer>Caught in 3D · prompts are free to use for your own projects.</footer></main><script>document.querySelectorAll('pre').forEach(p=>{const b=document.createElement('button');b.textContent='Copy';
+b.onclick=()=>{navigator.clipboard.writeText(p.querySelector('code').innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)})};p.prepend(b)})</script></html>

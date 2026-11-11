@@ -1,0 +1,38 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Bloby Part 2 — Bring your character to life (calm, smooth motion)</title><style>:root{color-scheme:dark light}body{margin:0;background:#0d1224;color:#e8ecff;font:17px/1.6 system-ui,Segoe UI,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.6rem;line-height:1.2}h2{font-size:1.2rem;margin-top:2rem;color:#ffd60a}
+blockquote{margin:1rem 0;padding:.4rem 1rem;border-left:4px solid #ffd60a;background:#161d38;border-radius:8px}
+pre{position:relative;background:#050814;border:1px solid #2a3560;border-radius:12px;padding:16px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:14px/1.5 Consolas,monospace}
+button{position:sticky;float:right;top:0;margin:-6px -6px 6px 8px;background:#ffd60a;color:#14141e;border:0;border-radius:10px;padding:8px 14px;font-weight:700;cursor:pointer}
+a{color:#7fb2ff}footer{margin-top:3rem;opacity:.7;font-size:.9rem}</style><main><h1>Bloby Part 2 — Bring your character to life (calm, smooth motion)</h1>
+<p><strong>What this does:</strong> gives you the prompt from the video. Claude writes a Blender Python script that animates a character by code: gentle breathing, a slow look-around, a small wave, and a mouth that opens and closes with a voice recording.</p>
+<p><strong>You need:</strong> a character like Bloby in Blender (see Part 1) and Claude. The character should have these objects: <code>CharacterRoot</code> (parent), <code>Head</code>, <code>Mouth</code>, <code>Arm</code> and <code>Arm.001</code>. If your names differ, tell Claude your names.</p>
+<hr>
+<h2>The prompt (copy everything below)</h2>
+<pre><code>You are an expert Blender Python (bpy) animator. I have a cartoon character in my scene. Objects:
+&quot;CharacterRoot&quot; (empty, parent of everything), &quot;Head&quot;, &quot;Mouth&quot;, &quot;Arm&quot; (left), &quot;Arm.001&quot; (right).
+Write ONE complete script for Blender 4.x/5.x that animates it with keyframes (24 fps, 10 seconds)
+with CALM, SMOOTH motion. Absolutely NO hopping, no dancing, no big bounces.
+
+Animation rules:
+1. Breathing: scale of CharacterRoot in Z changes by only about 1.5% in a slow sine (period ~3 s).
+2. Idle: tiny float of CharacterRoot (about 1.5 cm) and a tiny rotation around Z (about 0.7 degrees).
+3. Look around: from second 2 to second 5 the Head turns slowly left and right (max about 12 degrees),
+   starting and ending smoothly (ease in/out, smoothstep).
+4. Wave: from second 6 to second 8 the right arm &quot;Arm.001&quot; rises smoothly, waves gently about
+   15 degrees back and forth, and comes down smoothly.
+5. Talking mouth: add a function that reads a WAV file path from a variable at the top of the script,
+   measures its loudness per frame (use the wave and audioop/array modules or numpy if available),
+   smooths it (soft attack and release) and uses it to scale the Mouth in Z between 0.5x (closed)
+   and 3.5x (wide open) so the lips match the voice. If numpy is not available, use the standard library.
+6. Camera: a very slow push-in (about 10% closer) over the whole clip, ease in/out.
+7. Set every F-curve interpolation to BEZIER with auto-clamped handles so nothing looks robotic.
+
+Also: put every number (speed, strength, timing) in a small settings block at the top so I can tune it,
+comment the code, and tell me in 3 short lines how to run it and how to render it as an mp4.</code></pre>
+<hr>
+<h2>The trick from the video: ask → look → fix</h2>
+<p>My first version was <strong>way too bouncy</strong>. I looked at it, and then I told Claude exactly what was wrong:</p>
+<blockquote><em>&quot;The motion is too bouncy. Make everything slower and calmer, remove the hops, and ease every movement in and out.&quot;</em></blockquote>
+<p>Good fix prompts are <strong>specific</strong>: say <em>what</em> you see and <em>how much</em> to change (for example &quot;20% slower&quot;, &quot;half the rotation&quot;). Change one thing at a time.</p>
+<p><em>Made by Caught in 3D. Free to use for your own projects.</em></p><footer>Caught in 3D · prompts are free to use for your own projects.</footer></main><script>document.querySelectorAll('pre').forEach(p=>{const b=document.createElement('button');b.textContent='Copy';
+b.onclick=()=>{navigator.clipboard.writeText(p.querySelector('code').innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)})};p.prepend(b)})</script></html>

@@ -1,0 +1,52 @@
+<!doctype html><html lang=en><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Bloby Part 1 — Build a cute cartoon character in Blender with Claude</title><style>:root{color-scheme:dark light}body{margin:0;background:#0d1224;color:#e8ecff;font:17px/1.6 system-ui,Segoe UI,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}h1{font-size:1.6rem;line-height:1.2}h2{font-size:1.2rem;margin-top:2rem;color:#ffd60a}
+blockquote{margin:1rem 0;padding:.4rem 1rem;border-left:4px solid #ffd60a;background:#161d38;border-radius:8px}
+pre{position:relative;background:#050814;border:1px solid #2a3560;border-radius:12px;padding:16px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:14px/1.5 Consolas,monospace}
+button{position:sticky;float:right;top:0;margin:-6px -6px 6px 8px;background:#ffd60a;color:#14141e;border:0;border-radius:10px;padding:8px 14px;font-weight:700;cursor:pointer}
+a{color:#7fb2ff}footer{margin-top:3rem;opacity:.7;font-size:.9rem}</style><main><h1>Bloby Part 1 — Build a cute cartoon character in Blender with Claude</h1>
+<p><strong>What this does:</strong> gives you the exact prompt from the video. Claude writes a Blender Python script that builds a character like Bloby from simple shapes, adds colors, lights and a camera, and renders a picture.</p>
+<p><strong>You need:</strong> Blender (3.x–5.x) and Claude. Two ways to use it:</p>
+<ul>
+<li><strong>Easy:</strong> paste the prompt into Claude, copy the script it writes, open Blender → <em>Scripting</em> tab → <em>New</em> → paste → press ▶ <em>Run Script</em>.</li>
+<li><strong>Connected:</strong> if Claude is connected to Blender (MCP), tell Claude to run it for you.</li>
+</ul>
+<hr>
+<h2>The prompt (copy everything below)</h2>
+<pre><code>You are an expert Blender Python (bpy) artist. Write ONE complete script that runs in Blender
+(version 4.x or 5.x) and builds a cute cartoon mascot called &quot;Bloby&quot; from simple primitives.
+Use only bpy and math. Start by clearing the scene.
+
+Character (all sizes in Blender units, feet on the floor at z = 0):
+- Body: UV sphere at (0, 0, 0.9), scale (0.75, 0.6, 0.9), glossy blue (0.15, 0.45, 0.95).
+- Belly: UV sphere at (0, -0.45, 0.85), scale (0.5, 0.2, 0.6), light blue (0.35, 0.8, 1.0).
+- Head: UV sphere at (0, 0, 2.15), scale (1.0, 0.9, 0.95), same blue as the body.
+- Eyes: two white spheres at (-0.38, -0.78, 2.3) and (0.38, -0.78, 2.3), scale (0.3, 0.16, 0.34),
+  with dark pupils at (±0.38, -0.9, 2.3), scale (0.15, 0.08, 0.2).
+- Cheeks: two pink spheres at (±0.6, -0.72, 1.95), scale (0.16, 0.06, 0.1), color (0.9, 0.2, 0.35).
+- Mouth: a small dark sphere at (0, -0.85, 1.85), scale (0.2, 0.06, 0.1).
+- Arms: two purple spheres at (±0.95, 0, 1.05), scale (0.25, 0.25, 0.65), purple (0.5, 0.2, 0.85).
+- Feet: two purple spheres at (±0.35, 0, 0.2), scale (0.3, 0.35, 0.3).
+- Tufts: three small purple spheres on top of the head at (-0.25, 0, 3.1), (0, 0, 3.2), (0.25, 0, 3.1),
+  scale (0.12, 0.12, 0.3).
+- Name the objects clearly (Head, Body, Belly, Mouth, Arm, Arm.001 ...) and parent all parts to one
+  empty called &quot;CharacterRoot&quot; so I can move the whole character.
+- Smooth shading on every part. Use Principled BSDF materials with low roughness (about 0.35).
+
+Scene:
+- A dark floor plane and a soft dark-blue background.
+- Two area lights: a strong key light from the front-right above (location 3, -4, 5, energy 600)
+  and a weaker fill light from the front-left (location -4, -2, 3, energy 250).
+- A camera that looks at the character from the front (focal length 50 mm), framing the whole body.
+- Set the render engine to EEVEE, resolution 1080 x 1920 (vertical), and render one still image to
+  the folder I give you.
+
+Rules: no external files, no add-ons, comment each section, and tell me in 3 short lines how to run it.</code></pre>
+<hr>
+<h2>How to get a better result (the &quot;ask → look → fix&quot; trick)</h2>
+<ol>
+<li>Run it and <strong>look</strong> at the render.</li>
+<li>Ask for <strong>one</strong> small change at a time, for example: <em>&quot;Make the eyes 20% bigger&quot;</em>, <em>&quot;Make the colors warmer&quot;</em>, <em>&quot;Add a small smile&quot;</em>.</li>
+<li>Always check every result yourself: Claude can make mistakes, and the first version is rarely perfect.</li>
+</ol>
+<p><em>Made by Caught in 3D. Free to use for your own projects.</em></p><footer>Caught in 3D · prompts are free to use for your own projects.</footer></main><script>document.querySelectorAll('pre').forEach(p=>{const b=document.createElement('button');b.textContent='Copy';
+b.onclick=()=>{navigator.clipboard.writeText(p.querySelector('code').innerText).then(()=>{b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)})};p.prepend(b)})</script></html>
